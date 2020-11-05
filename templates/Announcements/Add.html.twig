@@ -1,0 +1,48 @@
+{% extends 'Layouts/default.html.twig' %}
+{% block title %}Add{% endblock %}
+{% block collection_widget %}
+    {% apply spaceless %}
+        {% if prototype is defined %}
+            {% set attr = attr|merge({'data-prototype': form_row(prototype)}) %}
+            {% set attr = attr|merge({'data-prototype-name': prototype.vars.name}) %}
+        {% endif %}
+        {% set attr = attr|merge({'data-allow-add': allow_add ? 1 : 0}) %}
+        {% set attr = attr|merge({'data-allow-remove': allow_delete ? 1 : 0 }) %}
+        {% set attr = attr|merge({'data-name-prefix': full_name}) %}
+        {{ block('form_widget') }}
+    {% endapply %}
+{% endblock collection_widget %}
+{% block main %}
+
+    <div class="mt-4 bg-light rounded container text-center">
+        <h1 class="h3 mb-3 font-weight-normal ">Add announcement</h1>
+        {{ form_start(form) }}
+        <div class="row">
+            <div class="col-md-4">{{ form_row(form.title) }}</div>
+            <div class="col-md-4">{{ form_row(form.city) }}</div>
+            <div class="col-md-4">{{ form_row(form.zipCode) }}</div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">{{ form_row(form.category) }}</div>
+            <div class="col-md-4">{{ form_row(form.type) }}</div>
+            <div class="col-md-4">{{ form_row(form.energy) }}</div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">{{ form_row(form.area) }}</div>
+            <div class="col-md-3">{{ form_row(form.room) }}</div>
+            <div class="col-md-3">{{ form_row(form.bedroom) }}</div>
+            <div class="col-md-3">{{ form_row(form.floor) }}</div>
+        </div>
+        <div class="row">
+            <div class="col-md-9">{{ form_row(form.description) }}</div>
+            <div class="col-md-3">{{ form_row(form.price) }}</div>
+        </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
+{% block script %}
+        <script src="{{ asset('build/script.js') }}"></script>
+{% endblock %}
+
+
+

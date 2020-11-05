@@ -1,0 +1,51 @@
+{% extends 'Layouts/default.html.twig' %}
+{% block title %}List{% endblock %}
+{% block main %}
+    <div class="container mt-4 bg-light rounded  text-center ">
+        <h2 class="text-capitalize">Gérer les biens</h2>
+        {% for error in app.flashes('error') %}
+            <div class="alert alert-danger">
+                {{ error }}
+            </div>
+        {% endfor %}
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+        <table class="table table-borderless text-capitalize">
+            <tbody>
+            <tr>
+                <th scope="col">Title</th>
+                <th scope="col" colspan="2">Action</th>
+            </tr>
+            {% for announcement in lists %}
+                <tr>
+                    <th scope="row">
+                        <a href="{{ path('detail_announcement', {id: announcement.id}) }}">{{ announcement.title }}</a>
+                    </th>
+                    <td>
+                        <a href="{{ path('edit_announcement',{id : announcement.id}) }}" class="btn btn-secondary text-capitalize">edit</a>
+                    </td>
+                    <td>
+                        <form action="{{ path('delete_announcement',{id:announcement.id}) }}" method="post"
+                              onsubmit="return confirm('Êtes vous vraiment sûr ?')" style="display: inline-block">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ announcement.id) }}">
+                            <button class="btn btn-danger text-capitalize">delete</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th class="text-right font-weight-normal" colspan="3">
+                        <a href="{{ path('add_announcement') }}" class="d-inline text-capitalize">add ad</a>
+                    </th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+{% endblock %}

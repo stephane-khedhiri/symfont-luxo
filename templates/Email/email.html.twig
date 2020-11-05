@@ -1,0 +1,7 @@
+<h1>Hi!</h1>
+
+<p>To reset your password, please visit the following link</p>
+
+<a href="{{ url('reset_password', {token: user.token, id:user.id}) }}">{{ url('reset_password', {token: user.token, id:user.id}) }}</a>
+
+<p>Cheers!</p>

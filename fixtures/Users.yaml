@@ -1,0 +1,7 @@
+App\Entity\User :
+  user_{1..10}:
+    firstName: <name()>
+    lastName: <name()>
+    birth: <dateTimeBetween('-30 years', '-18 years')>
+    email: <email()>
+    password: <encodePassword('test')>

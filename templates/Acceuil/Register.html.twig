@@ -1,0 +1,26 @@
+{% extends 'Layouts/default.html.twig' %}
+{% block title %}Sign up{% endblock %}
+{% block main %}
+    <div class=" bg-light rounded p-2 text-center container text-capitalize mt-4">
+        {{ form_start(form) }}
+        <h1 class="h3 mb-3 font-weight-normal ">sign up</h1>
+        {% for message in app.flashes('error') %}
+            <div class="alert alert-danger">
+                {{ message }}
+            </div>
+        {% endfor %}
+        <div class="row justify-content-center ">
+            <div class="col-md-6">{{ form_row(form.firstName) }}</div>
+            <div class="col-md-6">{{ form_row(form.lastName) }}</div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-6">{{ form_row(form.email) }}</div>
+            <div class="col-md-6 justify-content-center">{{ form_row(form.birth) }}</div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-md-6">{{ form_row(form.password) }}</div>
+        </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

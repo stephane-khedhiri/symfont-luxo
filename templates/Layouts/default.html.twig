@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="an">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/d4d034b6e2.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Lora|Open+Sans&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="{{ asset('build/images/logo.png') }}"/>
+
+
+    {{ encore_entry_link_tags('app') }}
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+
+<header>
+    <nav class="">
+        <ul class="nav nav-pills nav-fill p-2 text-capitalize ">
+            <li class="nav-item mr-auto p-2 ">
+                <a class="nav-link" href="{{ url('home') }}">
+                    <img src="{{ asset('build/images/logo.png') }}" alt="logo de luxo" class="logo w-25">
+                </a>
+            </li>
+            <li class="nav-item align-self-center">
+                <a class="nav-link text-light" href="{{ url('purchase') }}">purchase</a>
+            </li>
+            <li class="nav-item align-self-center">
+                <a class="nav-link text-light" href="{{ url('rental') }}">rental</a>
+            </li>
+            {% if app.user %}
+                <li class="nav-link align-self-center">
+                    <a class="nav-link text-light" href="{{ url('list_announcement') }}">announcements</a>
+                </li>
+                <li class="nav-link align-self-center">
+                    <a class="nav-link text-light" href="{{ url('edit_user', {id : app.user.id}) }}">compte</a>
+                </li>
+                <li class="nav-link align-self-center">
+                    <a class="nav-link text-light" href="{{ path('logout') }}">déconnecter</a>
+                </li>
+            {% else %}
+                <li class="nav-link align-self-center">
+                    <a class="nav-link text-light" href="{{ path('register') }}">register</a>
+                </li>
+                <li class="nav-link align-self-center">
+                    <a class="nav-link text-light" href="{{ path('login') }}">connexion</a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+</header>
+<main>
+    {% block main %}
+
+    {% endblock %}
+</main>
+<footer class="
+{% if app.request.attributes.all["_route"] != 'home' and
+    app.request.attributes.all["_route"] != 'rental' and
+    app.request.attributes.all["_route"] != 'edit_announcement'
+    %}
+    {{ "fixed-bottom" }}
+{% endif %}
+d-flex justify-content-around">
+    <ul class="nav nav-pills nav-fill">
+        <li class="nav-item ">
+            <a class="nav-link" href="#"><i class="fab fa-facebook-square"></i></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#"><i class="fab fa-twitter-square"></i></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#"><i class="fab fa-linkedin"></i></a>
+        </li>
+
+    </ul>
+    <p class="align-self-center text-light">all Rights Reserved.</p>
+</footer>
+{{ encore_entry_script_tags('app') }}
+{% block script %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,79 @@
+{% extends 'Layouts/default.html.twig' %}
+{% block title %}{{ announcement.title }}{% endblock %}
+{% block main %}
+    <div class="mt-4 bg-light rounded container text-center">
+        <section class="d-flex justify-content-center" >
+            <article class="p-4 w-50">
+                <div class="glide">
+                    <div data-glide-el="track" class="glide__track">
+                        <ul class="glide__slides">
+                            {% if announcement.images.count == 0%}
+                                <li class="glide__slide">
+                                    <img src="{{ asset("build/images/image-not-found.gif") }}">
+                                </li>
+                            {% endif %}
+                            {% for image in announcement.images %}
+                            <li class="glide__slide">
+                                <img src="{{ asset(image.path, 'media') }}"
+                                                          alt="La forêt de peupliers">
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="slider__bullets glide__bullets mr-auto" data-glide-el="controls[nav]">
+                        {% for count in announcement.images.keys %}
+                            <button class="slider__bullet glide__bullet" data-glide-dir="={{ count }}"></button>
+                        {% endfor %}
+                    </div>
+                </div>
+            </article>
+            <article class="mx-5 p-2 align-self-center">
+                {% for message in app.flashes('success') %}
+                    <div id="form_send" class="alert alert-success">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+                <h2 class="h3 mb-3 font-weight-normal text-capitalize">{{announcement.title}}</h2>
+                <span>{{ announcement.city}} ({{announcement.zipcode}})</span>
+                <h4 class="price">{{announcement.price | number_format(0, '', ' ')}} €</h4>
+                <a class="p-2 btn btn-outline-info" id="button">Contact L'agence</a>
+            </article>
+        </section>
+        <div class="d-none" id="form_contact">
+            <h3 class="mb-3 font-weight-normal ">Contact</h3>
+            {{ form_start(form) }}
+
+            <div class="row">
+                <div class="col-md-4">{{ form_row(form.firstname) }}</div>
+                <div class="col-md-4">{{ form_row(form.lastname) }}</div>
+                <div class="col-md-4">{{ form_row(form.email) }}</div>
+            </div>
+            <div class="arrows">{{ form_row(form.message) }}</div>
+            {{ form_end(form) }}
+        </div>
+        <div>{{announcement.description | nl2br}}</div>
+        <table class="table mt-4 text-capitalize">
+            <thead class="bg-secondary ">
+            <tr>
+                <th scope="col">area</th>
+                <th scope="col">room</th>
+                <th scope="col">bedroom</th>
+                <th scope="col">floor</th>
+                <th scope="col">energy</th>
+            </tr>
+            </thead>
+            <tboby>
+                <tr>
+                    <td scope="row">{{announcement.area}} m²</td>
+                    <td>{{announcement.room}}</td>
+                    <td>{{announcement.bedroom}}</td>
+                    <td>{{announcement.floor}}</td>
+                    <td>{{announcement.energytostring}}</td>
+                </tr>
+            </tboby>
+        </table>
+    </div>
+{% endblock %}
+{% block script %}
+    <script src="{{ asset('build/event.js') }}"></script>
+{% endblock %}

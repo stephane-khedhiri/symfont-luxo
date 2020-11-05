@@ -1,0 +1,22 @@
+{% extends 'Layouts/default.html.twig' %}
+{% block title %}Edit{% endblock %}
+{% block main %}
+    <div class="bg-light rounded p-2 text-center container text-capitalize mt-4">
+        {{ form_start(form) }}
+            <h1 class="h3 mb-3 font-weight-normal">edit</h1>
+            <div class="row justify-content-center">
+                <div class="col-md-5">{{ form_row(form.firstName) }}</div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-5">{{ form_row(form.lastName) }}</div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-5">{{ form_row(form.email) }}</div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-2">{{ form_row(form.submit) }}</div>
+                <div class="col-md-3"><a href="{{ path('delete_user',{id:id}) }}" class="btn btn-danger"> disactivate your account</a> </div>
+            </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

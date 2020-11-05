@@ -1,0 +1,13 @@
+App\Entity\Image:
+  image_studio_{1..2}:
+    name: <name()>
+    path: <imageUpload("studio")>
+  image_appartement_{1..2}:
+    name: <name()>
+    path: <imageUpload("appartement")>
+  image_maison_{1..2}:
+    name: <name()>
+    path: <imageUpload("maison")>
+  image_villa_{1..2}:
+    name: <name()>
+    path: <imageUpload("villa")>

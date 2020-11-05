@@ -1,0 +1,85 @@
+{% extends "Layouts/default.html.twig" %}
+{% block title %}Home{% endblock %}
+{% block main %}
+    <section class="presentation w-auto">
+        <article class="text-center text-justify">
+            <h1>Luxo Have New Offers For You</h1>
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab culpa deserunt dignissimos eaque
+                excepturi
+                explicabo, illum incidunt ipsum minus nobis pariatur placeat possimus qui recusandae sapiente
+                voluptate
+                voluptatum! Aut, molestiae?</p>
+
+        </article>
+    </section>
+    <section class="d-flex flex-wrap container-fluid">
+        {% for announcement in announcements.location %}
+            <article class="col-md-3 p-2">
+                <div class="slider">
+                    <div class="glide">
+                        <div data-glide-el="track" class="glide__track">
+                            <ul class="glide__slides">
+                                {% if announcement.images.count == 0 %}
+                                    <li class="glide__slide">
+                                        <img src="{{ asset("build/images/image-not-found.gif") }}">
+                                    </li>
+                                {% endif %}
+                                {% for image in announcement.images %}
+                                    <li class="glide__slide"><img src="{{ asset(image.path, 'media') }}"
+                                                                  alt="La forêt de peupliers" class="rounded ">
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="slider__bullets glide__bullets mr-auto" data-glide-el="controls[nav]">
+                            {% for count in announcement.images.keys %}
+                                <button class="slider__bullet glide__bullet" data-glide-dir="={{ count }}"></button>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <article class="d-flex flex-column text-center text-light">
+                    <h3 class="p-2">{{ announcement.title }}</h3>
+                    <h4 class="p-2">{{ announcement.price|number_format(0, '', ' ') }} €</h4>
+                    <a class="p-2 btn btn-outline-info"
+                       href="{{ path('detail_announcement',{id : announcement.id}) }}">en savoir plus</a>
+                </article>
+            </article>
+        {% endfor %}
+    </section>
+
+    <section class="video">
+        <h2>New <span>Life</span>,New <span>Beginning</span></h2>
+    </section>
+    <section class=" d-flex flex-wrap container-fluid mb-5">
+        {% for announcement in announcements.achat %}
+            <article class="col-md-3 p-2">
+                <div class="slider">
+                    <div class="glide">
+                        <div data-glide-el="track" class="glide__track">
+                            <ul class="glide__slides">
+                                {% for image in announcement.images %}
+                                    <li class="glide__slide"><img src="{{ asset(image.path, 'media') }}"
+                                                                  alt="La forêt de peupliers" class="rounded ">
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="slider__bullets glide__bullets mr-auto" data-glide-el="controls[nav]">
+                            {% for count in announcement.images.keys %}
+                                <button class="slider__bullet glide__bullet" data-glide-dir="={{ count }}"></button>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <article class="d-flex flex-column text-center text-light ">
+                    <h3 class="p-2">{{ announcement.title }}</h3>
+                    <h4 class="p-2">{{ announcement.price|number_format(0, '', ' ') }} €</h4>
+                    <a class="p-2 btn btn-outline-info"
+                       href="{{ path('detail_announcement', {id: announcement.id}) }}">en savoir plus</a>
+                </article>
+            </article>
+        {% endfor %}
+    </section>
+{% endblock %}

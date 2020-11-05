@@ -1,0 +1,21 @@
+<h1>Luxo</h1>
+<h3>Dear {{ owner.firstName }} {{ owner.lastName }} ,</h3>
+<p>We are pleased to announce that an individual is contacting you for your
+    <a href="{{ path('detail_announcement',{id:announcement.id}) }}">
+        <strong>
+            Ad
+        </strong>
+    </a>
+    .
+</p>
+<h4>Here is his message</h4>
+<h5>
+    {{ contact.firstname }} {{ contact.lastname }}
+</h5>
+<p>{{ contact.email }}</p>
+<p>{{ contact.message }}</p>
+
+<span>Luxo announces that the first step has been completed so we let you get in touch with
+    the individual all the team thank you for your trust</span>
+
+

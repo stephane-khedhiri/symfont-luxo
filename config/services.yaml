@@ -27,5 +27,13 @@ services:
         resource: '../src/Controller/'
         tags: ['controller.service_arguments']
 
-    # add more service definitions when explicit configuration is needed
-    # please note that last definitions always *replace* previous ones
+    App\Form\:
+        resource: '../src/Form/'
+        tags: ['form.service_arguments']
+
+    App\DataFixtures\Faker\Provider\Provider:
+        arguments:
+            $resource: '%kernel.project_dir%/resource/images'
+            $uploadDir: '%kernel.project_dir%/public/media'
+            $publicDir: 'public/media'
+        tags: ['nelmio_alice.faker.provider']

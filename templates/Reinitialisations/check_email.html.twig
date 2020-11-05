@@ -1,0 +1,11 @@
+{% extends 'Layouts/default.html.twig' %}
+
+{% block title %}Password Reset Email Sent{% endblock %}
+
+{% block main %}
+    <div class="mt-4 bg-light rounded container text-center p-3 text-justify">
+        <p>An email has been sent that contains a link that you can click to reset your password.</p>
+        <p>If you don't receive an email please check your spam folder or <a href="{{ path('check_email') }}">try
+                again</a>.</p>
+    </div>
+{% endblock %}
