@@ -34,12 +34,18 @@ class RegisterAction extends AbstractController
     public function __invoke(RequestStack $requestStack, MailerInterface $mailer, UserRepository $userRepository, FormFactoryInterface $formFactory)
     {
         $user = new User();
+        $users =$userRepository->findAll();
         $form = $formFactory->createBuilder(RegisterType::class, $user)
             ->getForm();
 
         $form->handleRequest($requestStack->getCurrentRequest());
-
         if ($form->isSubmitted() && $form->isValid()) {
+            foreach ($users as $dbUser){
+                if ($dbUser->getEmail() === $user->getEmail() ){
+                    $this->addFlash('error : email not valid !');
+                    return $this->redirectToRoute('register');
+                }
+            }
             $user = $form->getData();
             $email = (new Email())
                 ->from('luxo.noreply.robot@gmail.com')
@@ -51,8 +57,8 @@ class RegisterAction extends AbstractController
             $mailer->send($email);
 
             $userRepository->register($user);
-            $this->addFlash('success', 'compte crée');
-            return $this->redirectToRoute('login');
+            $this->addFlash('success', 'create user');
+            return $this->render('security/login.html.twig');
         }
 
         return $this->render('Acceuil/Register.html.twig', [
