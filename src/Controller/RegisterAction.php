@@ -16,6 +16,7 @@ use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
 class RegisterAction extends AbstractController
 {
@@ -27,11 +28,12 @@ class RegisterAction extends AbstractController
      * @param UserRepository $userRepository
      * @param FormFactoryInterface $formFactory
      *
+     * @param EncoderFactoryInterface $encoderFactory
      * @return RedirectResponse|Response
      *
      * @throws TransportExceptionInterface
      */
-    public function __invoke(RequestStack $requestStack, MailerInterface $mailer, UserRepository $userRepository, FormFactoryInterface $formFactory)
+    public function __invoke(RequestStack $requestStack, MailerInterface $mailer, UserRepository $userRepository, FormFactoryInterface $formFactory, EncoderFactoryInterface $encoderFactory)
     {
         $user = new User();
         $users =$userRepository->findAll();
@@ -43,7 +45,6 @@ class RegisterAction extends AbstractController
             $user = $form->getData();
             foreach ($users as $dbUser){
                 if ($dbUser->getEmail() === $user->getEmail() ){
-                    dump($dbUser, $user);
                     $this->addFlash('error','error : email not valid !');
                     return $this->redirectToRoute('register');
                 }
@@ -57,7 +58,7 @@ class RegisterAction extends AbstractController
                     'user' => $user
                 ])->getContent());
             $mailer->send($email);
-
+            $user->getPassword($encoderFactory->getEncoder($user)->encodePassword($user, $form->getData()->getEmail()));
             $userRepository->register($user);
             return $this->redirectToRoute('login');
         }

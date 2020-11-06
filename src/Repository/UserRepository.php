@@ -33,10 +33,11 @@ class UserRepository extends ServiceEntityRepository
     }
 
 
-    public function register($getData)
+    public function register($user)
     {
-        $this->_em->persist($getData);
-        $this->_em->flush($getData);
+        $user->setPassword($this->encoderFactory->getEncoder($user)->encodePassword($user->getPassword(), null));
+        $this->_em->persist($user);
+        $this->_em->flush($user);
     }
 
     public function edit($user)
@@ -44,7 +45,6 @@ class UserRepository extends ServiceEntityRepository
         $uow = $this->_em->getUnitOfWork();
         $uow->computeChangeSets();
         $changeSet = $uow->getEntityChangeSet($user);
-
         if (isset($changeSet['password']) && strlen($changeSet['password'][1]) > 0) {
             $user->setPassword($this->encoderFactory->getEncoder($user)->encodePassword($changeSet['password'][1], null));
             $uow->recomputeSingleEntityChangeSet(

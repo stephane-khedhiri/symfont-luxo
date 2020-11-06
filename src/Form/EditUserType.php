@@ -13,7 +13,6 @@ class EditUserType extends AbstractType
     {
         $builder
             ->remove('birth')
-            ->remove('password')
             ->add("submit", SubmitType::class,[
                 'label'=> 'edit',
             ])
