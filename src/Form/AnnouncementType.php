@@ -37,6 +37,7 @@ class AnnouncementType extends AbstractType
             ])
             ->add('floor', IntegerType::class)
             ->add('images' , CollectionType::class, [
+                'required' => false,
                 'entry_type' => AddImageType::class,
                 'entry_options' => ['label' => false],
                 'allow_add' => true,

@@ -20,8 +20,8 @@
 {% block _edit_announcement_images_entry_widget %}
     <div>
         {% if value %}
-        <div class="card w-25 d-inline-block mt-4">
-            <img class="card-img-top" src="{{ asset(value.path) }}" alt="{{ value.path }}">
+        <div class="card w-25 d-inline-block mt-4 text-lowercase">
+            <img class="card-img-top" src="{{ asset(value.path, 'media') }}" alt="{{ value.path }}">
         </div>
         {% endif %}
         {{ block('form_widget') }}

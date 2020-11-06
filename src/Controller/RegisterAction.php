@@ -40,13 +40,15 @@ class RegisterAction extends AbstractController
 
         $form->handleRequest($requestStack->getCurrentRequest());
         if ($form->isSubmitted() && $form->isValid()) {
+            $user = $form->getData();
             foreach ($users as $dbUser){
                 if ($dbUser->getEmail() === $user->getEmail() ){
-                    $this->addFlash('error : email not valid !');
+                    dump($dbUser, $user);
+                    $this->addFlash('error','error : email not valid !');
                     return $this->redirectToRoute('register');
                 }
             }
-            $user = $form->getData();
+
             $email = (new Email())
                 ->from('luxo.noreply.robot@gmail.com')
                 ->to($user->getEmail())
@@ -57,8 +59,7 @@ class RegisterAction extends AbstractController
             $mailer->send($email);
 
             $userRepository->register($user);
-            $this->addFlash('success', 'create user');
-            return $this->render('security/login.html.twig');
+            return $this->redirectToRoute('login');
         }
 
         return $this->render('Acceuil/Register.html.twig', [

@@ -1,31 +1,31 @@
 {% extends 'Layouts/default.html.twig' %}
 {% block title %}sign in{% endblock %}
 {% block main %}
-    <div class="bg-light rounded p-2 text-center container text-capitalize mt-4">
-        <h1 class="h3 mb-3 font-weight-normal">sign up</h1>
-        {% for message in app.flashes('succes') %}
-            <div class="alert alert-success">
-                {{ message }}
-            </div>
-        {% endfor %}
-        {% if error %}
-            <div class="alert alert-danger">
-                {{ form_errors(form) }}
-            </div>
-        {% endif %}
-        {{ form_start(form) }}
-        <div class="row justify-content-center">
-            <div class="col-md-6">{{ form_row(form.email) }}</div>
-            {{ form_help(form.email) }}
+<div class="bg-light rounded p-2 text-center container text-capitalize mt-4">
+    <h1 class="h3 mb-3 font-weight-normal">sign up</h1>
+    {% for message in app.flashes('succes') %}
+        <div class="alert alert-success">
+            {{ message }}
         </div>
-        <div class="row justify-content-center">
-            <div class="col-md-6">{{ form_row(form.password) }}</div>
-            {{ form_help(form.password) }}
-        </div>
-        <div class="row justify-content-center">
-            <div class="col-md-6"><a href="{{ path('check_email') }}">mot de passe oublier</a> </div>
-        </div>
-        {{ form_end(form) }}
-
+    {% endfor %}
+    {% if error %}
+    <div class="alert alert-danger">
+        {{ form_errors(form) }}
     </div>
+    {% endif %}
+    {{ form_start(form) }}
+    <div class="row justify-content-center">
+        <div class="col-md-6">{{ form_row(form.email) }}</div>
+        {{ form_help(form.email) }}
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-6">{{ form_row(form.password) }}</div>
+        {{ form_help(form.password) }}
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-6"><a href="{{ path('check_email') }}">mot de passe oublier</a></div>
+    </div>
+    {{ form_end(form) }}
+
+</div>
 {% endblock %}

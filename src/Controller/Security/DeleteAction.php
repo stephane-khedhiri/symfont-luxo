@@ -45,6 +45,6 @@ class DeleteAction extends AbstractController
             ->subject('disactivate your account')
             ->html("We thank you for using our service see you soon");
         $mailer->send($email);
-        return $this->render('Acceuil/Home.html.twig');
+        return $this->redirectToRoute('/home');
     }
 }

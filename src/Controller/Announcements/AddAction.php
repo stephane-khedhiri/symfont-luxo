@@ -47,10 +47,9 @@ class AddAction extends AbstractController
                    $safeFilename = (new AsciiSlugger())->slug($originalFileName);
                    $newFilename = $safeFilename . '-' . uniqid() . '.' . $file->guessExtension();
                    try {
-                       $publicPath = 'media/' . $announcement->getTypeName();
-                       $path = realpath(__DIR__ . '/../../../public/').'/'.$publicPath;
+                       $publicPath =$announcement->getTypeName();
+                       $path = realpath(__DIR__ . '/../../../public/media').'/'.$publicPath;
                        @mkdir($path,0777,true);
-
                        $file->move($path, $newFilename);
 
                    } catch (FileException $e) {

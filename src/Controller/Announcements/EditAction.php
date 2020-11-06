@@ -46,8 +46,9 @@ class EditAction extends AbstractController
         $form->handleRequest($request->getCurrentRequest());
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $announcementEdit = $form->getData();
-            $announcementEdit->getImages()->map(function (Image $image) use ($announcement) {
+            $announcement = $form->getData();
+
+            $announcement->getImages()->map(function (Image $image) use ($announcement) {
                 if ($file = $image->getFile()) {
                     $originalFileName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
                     $safeFilename = (new AsciiSlugger())->slug($originalFileName);
@@ -66,7 +67,7 @@ class EditAction extends AbstractController
                     return $image;
                 }
             });
-            $announcementRepository->persist($announcementEdit);
+            $announcementRepository->persist($announcement);
             $this->addFlash('success', 'edit successfully');
             return $this->redirectToRoute('list_announcement');
         }

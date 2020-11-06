@@ -56,11 +56,13 @@
 <footer class="
 {% if app.request.attributes.all["_route"] != 'home' and
     app.request.attributes.all["_route"] != 'rental' and
-    app.request.attributes.all["_route"] != 'edit_announcement'
+    app.request.attributes.all["_route"] != 'purchase' and
+    app.request.attributes.all["_route"] != 'edit_announcement' and
+    app.request.attributes.all["_route"] != 'add_announcement'
     %}
     {{ "fixed-bottom" }}
 {% endif %}
-d-flex justify-content-around">
+d-flex justify-content-around p-2">
     <ul class="nav nav-pills nav-fill">
         <li class="nav-item ">
             <a class="nav-link" href="#"><i class="fab fa-facebook-square"></i></a>
